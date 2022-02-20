@@ -1,0 +1,28 @@
+<div style="margin-top: 50px;padding: 0 50px;">
+  <div class="col-lg-4 col-md-6 col-sm-12 offset-md-4">
+    <h1 class="text-center"><b>登入帳號</b></h3>
+    <%= form_for :login, url: {action: :login}, html: {} do |f|  %>
+      <div class="col div_input">
+        <div class="form-group">
+          <label for="account">帳號</label>
+          <%= f.text_field :account, class: "form-control", autocomplete: false %>
+        </div>
+      </div>
+      <div class="col div_input">
+        <div class="form-group">
+          <label for="password">密碼</label>
+          <%= f.text_field :password, type: "password", class: "form-control", autocomplete: false %>
+        </div>
+      </div>
+      <div class="col div_input" align="right">
+        <%= link_to '忘記密碼', "#", style: 'text-decoration:none' %>
+      </div>
+      <div class="col" style="margin-bottom:50px">
+        <%= f.submit '登入', class: 'btn btn-success', style: 'width:100%' %>
+      </div>
+      <div class="col div_input">
+        <%= link_to '註冊新帳號', {action: 'new'}, style: 'text-decoration:none' %>
+      </div>
+    <% end %>
+  </div>
+</div>

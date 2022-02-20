@@ -1,0 +1,34 @@
+<div style="margin-top: 50px;padding: 0 50px;">
+  <div class="col-lg-4 col-md-6 col-sm-12 offset-md-4">
+    <h1 class="text-center"><b>註冊新帳號</b></h3>
+    <%= form_for :new_acc, url: {action: :create}, html: {} do |f| %>        
+        <div class="col div_input">
+            <div class="form-group">
+            <label for="account">帳號</label>
+            <%= f.text_field :account, class: "form-control", autocomplete: false, required: true %>
+            </div>
+        </div>
+        <div class="col div_input">
+            <div class="form-group">
+            <label for="password">密碼</label>
+            <%= f.text_field :password, type: "password", class: "form-control", autocomplete: false, required: true %>
+            </div>
+        </div>
+        <div class="col div_input">
+            <div class="form-group">
+            <label for="username">暱稱</label>
+            <%= f.text_field :username, class: "form-control", autocomplete: false, required: true %>
+            </div>
+        </div>
+        <div class="col div_input">
+            <div class="form-group">
+            <label for="email">Email</label>
+            <%= f.text_field :email, type: 'email', class: "form-control", autocomplete: false, required: true %>
+            </div>
+        </div>
+        <div class="col" style="margin-top:20px">
+            <%= f.submit '送出', class: 'btn btn-success', style: 'width:100%' %>
+        </div>
+    <% end %>
+  </div>
+</div>

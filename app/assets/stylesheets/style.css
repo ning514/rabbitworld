@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.web_container{
+    position: absolute;
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.text_shadow{
+    text-shadow: 0.1em 0.2em 0.2em gray
+}
+
+.menu_box > div{
+    border: 1px solid rgb(223, 223, 223);
+    border-radius: 30px;
+    margin: 20px;
+    padding: 20px;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.article_style{
+    padding: 10px 100px;
+}
+
+.article_style > div{
+    margin-bottom: 30px;
+    line-height: 2;
+}
+
+.div_input{
+    margin-bottom: 10px; 
+}
