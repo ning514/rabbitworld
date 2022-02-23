@@ -1,0 +1,111 @@
+ul{
+  list-style-type: none;
+}
+
+.header{
+	background-color: #0f254c;
+	height: 65px;
+}
+
+.logo{
+	float: left;	
+  	padding: 10px 10px 0 20px;	
+}
+
+.logo a{
+	text-decoration: none;
+	font-size: 28px;
+	font-weight: bold;
+	color: #dae9ff;
+}
+
+.logo img{
+	width: 40px;
+	height: 40px;
+	margin-right: 10px;
+}
+
+.menu-list{
+	float: left;
+	padding-top: 23px;
+}
+
+.menu-list li{
+	float: left;
+}
+
+.menu-list a{
+	text-decoration: none;
+	font-weight: bold;
+	color: #dae9ff;
+	font-size: 18px;
+	padding: 22px 15px 0 20px;
+}
+
+.user-list{
+	float: right;
+	padding: 20px 10px 0 0;
+}
+
+.user-list li{
+	float: left;
+}
+
+.user-list a{
+	text-decoration: none;
+	font-weight: bold;
+	color: #dae9ff;
+	font-size: 18px;
+	padding: 22px 15px 0 20px;
+}
+
+.logo a:hover, .menu-list a:hover, .user-list a:hover{
+	color: rgb(255, 242, 128);
+}
+
+.showmenu{
+	display: none;
+	float: right;
+}
+
+@media(max-width: 768px){
+	.logo{
+		margin: 0 auto;
+	}
+    .menu-list{		
+		/*隱藏選單開始*/
+		max-height: 0;
+		overflow: hidden;
+		/*隱藏選單end*/
+		position: absolute;/*追隨.header*/
+		/*讓選單從左到右延伸start*/
+		right: 0;
+		left: 0;
+		/*讓選單從左到右延伸end*/
+		top:67px;
+		/*把menu-list位置移到.header下方。點擊menu滑出/因沒設header高度，所以用開發者工具看高多少*/
+		z-index:100;
+    	transition: all 2.5s;
+		padding: 0;
+	}
+	.menu-list li{
+		float: none;
+		font-size: 24px;
+		border-bottom: 1px solid white ;
+		background: #0f254c;
+	}
+	.showmenu{
+		display: block;
+		padding: 18px 10px 0 0;
+		text-decoration: none;
+		font-weight: bold;
+		color: #dae9ff;
+	}
+	.showmenu:hover{ 
+		color: rgb(255, 242, 128);
+	}
+	/*jQ點擊後動態在 body 加上 class */ 
+	.menu-show .menu-list{
+		max-height: 336px; 
+	}
+}

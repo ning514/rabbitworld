@@ -1,0 +1,40 @@
+<div class="article_style">
+    <h2><b>商品管理</b></h2>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">新增</button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalLabel"><b>新增商品</b></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <%= form_for :new, url: {}, html: {} do |f| %>
+            <div class="input-group mb-3">
+                <label class="input-group-text">商品類別</label>
+                <%= f.select(:category, options_for_select(@category_list), {include_blank: true}, {class: 'form-select'}) %>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">商品名稱</span>
+                <%= f.text_field :name, class: 'form-control' %>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">商品敘述</span>
+                <%= f.text_area :desc, class: 'form-control' %>
+            </div>
+            <div class="input-group mb-3">
+                <span class="input-group-text">商品金額</span>
+                <%= f.text_field :price, type: 'number', min: 0, class: 'form-control' %>
+            </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">結束</button>
+        <button type="button" class="btn btn-primary">送出</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="header">
+  <div class="logo">
+    <%= link_to '<img src="https://img.icons8.com/external-icongeek26-flat-icongeek26/64/000000/external-rabbit-origami-icongeek26-flat-icongeek26.png"/>Rabbit World'.html_safe, {controller: '/main', action: 'index'} %>
+  </div>
+  <div class="menu">
+    <a href="#" class="showmenu"><i class="fa fa-bars fa-2x"></i></a>
+    <ul class="menu-list">
+      <li><%= link_to '認識兔子', {controller: '/rabbit/info', action: 'index'}, {} %></li>
+      <li><%= link_to '飼養百科', {controller: '/rabbit/info', action: 'feed'}, {} %></li>
+      <li><%= link_to '照顧方式', {controller: '/rabbit/info', action: 'feed'}, {} %></li>
+      <li><%= link_to '購物', {controller: '/rabbit/info', action: 'feed'}, {} %></li>
+    </ul>
+    <ul class="user-list">
+      <% if session[:user].present? %>
+        <%#= session[:username]%>
+        <li><%= link_to '商品管理', {controller: '/management/product', action: 'index'}, {title: '商品管理'} %></li>
+        <li><%= link_to '登出', {controller: '/login', action: 'logout'}, {title: '登出帳號'} %></li>
+      <% else %>
+        <li><%= link_to '<i class="fa fa-user fa-lg"></i>'.html_safe, {controller: '/login', action: 'index'}, {title: '登入帳號'} %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>

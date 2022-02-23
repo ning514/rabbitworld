@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :main, only: [:index]
   namespace :management do
-    resources :pet, only:[] do
+    resources :product, only:[:index] do
       collection do
         
       end
@@ -18,9 +18,10 @@ Rails.application.routes.draw do
       end
     end
   end
-  resources :login, only:[:index, :new, :create] do
+  resources :login, only:[:index, :new] do
     collection do
-      post :login
+      post :login, :create
+      get :logout
     end
   end
 end
