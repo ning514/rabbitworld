@@ -1,40 +1,75 @@
-<div class="article_style">
-    <h2><b>商品管理</b></h2>
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">新增</button>
-</div>
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title" id="modalLabel"><b>新增商品</b></h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<h2 class="row mb-4"><b>商品管理</b></h2>
+<%= form_for :query, url: {}, html: {id: 'search_product_form'} do |f| %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">類別</span>
+        <%= f.select :category, options_for_select(@category_list), {include_blank: 'ALL'}, {class: 'form-select'} %>
       </div>
-      <div class="modal-body">
-        <%= form_for :new, url: {}, html: {} do |f| %>
-            <div class="input-group mb-3">
-                <label class="input-group-text">商品類別</label>
-                <%= f.select(:category, options_for_select(@category_list), {include_blank: true}, {class: 'form-select'}) %>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text">商品名稱</span>
-                <%= f.text_field :name, class: 'form-control' %>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text">商品敘述</span>
-                <%= f.text_area :desc, class: 'form-control' %>
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group-text">商品金額</span>
-                <%= f.text_field :price, type: 'number', min: 0, class: 'form-control' %>
-            </div>
-        <% end %>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">名稱</span>
+        <%= f.text_field :name, class: 'form-control' %>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">結束</button>
-        <button type="button" class="btn btn-primary">送出</button>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">金額</span>
+        <%= f.text_field :start_price, type: 'number', min: 0, class: 'form-control' %>
+        <span class="input-group-text">~</span>
+        <%= f.text_field :end_price, type: 'number', min: 0, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">庫存</span>
+        <%= f.text_field :start_ttl_qty, type: 'number', min: 0, class: 'form-control' %>
+        <span class="input-group-text">~</span>
+        <%= f.text_field :end_ttl_qty, type: 'number', min: 0, class: 'form-control' %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">狀態</span>
+        <%= f.select :active, options_for_select(@active_list), {include_blank: 'ALL'}, {class: 'form-select'} %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-9 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">敘述</span>
+        <%= f.text_field :desc, class: 'form-control' %>
       </div>
     </div>
   </div>
-</div>
+  <%= f.submit '查詢', id: 'btn_search_product', class: "btn btn-primary" %>
+  <%= link_to '新增', {action: 'new'}, {id: 'btn_add', class: 'btn btn-success'} %>
+<% end %>
+<hr>
+<div id="div_result"></div>
+
+<script>
+  $('#btn_search_product').on('click', function(){
+    var start_price = $('#query_start_price').val();
+    var end_price = $('#query_end_price').val();
+    var start_ttl_qty = $('#query_start_ttl_qty').val();
+    var end_ttl_qty = $('#query_end_ttl_qty').val();
+    if((start_price!='' && end_price=='') || (start_price=='' && end_price!='')){
+      alert("請輸入金額範圍");
+    }else if((start_ttl_qty!='' && end_ttl_qty=='') || (start_ttl_qty=='' && end_ttl_qty!='')){
+      alert("請輸入庫存範圍");
+    }else{
+      $('#div_result').html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i>  <span style='font-size:18px;font-weight:bold;'>查詢中...</span>");
+      $.ajax({
+        url: "<%= url_for(action: :search) %>",
+        data: $('#search_product_form').serialize(),
+        type: "get",
+        dataType: 'html',
+        success: function(html){
+          $('#div_result').html(html);
+        }
+      });
+    }
+    return false;
+  });
+</script>

@@ -1,0 +1,35 @@
+<table class="table table-bordered table-hover">
+  <thead>
+    <tr style="background-color: #c4d9ff">
+      <th>No.</th>
+      <th>商品類別</th>
+      <th>商品名稱</th>
+      <th>商品敘述</th>
+      <th>售價金額</th>
+      <th>目前庫存</th>
+      <th>狀態</th>
+      <th>操作</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <% @data.each_with_index do |d, i| %>
+        <tr>
+          <td><%= i + 1 %></td>
+          <td><%= d.category %></td>
+          <td><%= d.name %></td>
+          <td><%= d.desc %></td>
+          <td><%= d.price %>元 / <%= d.unit_qty %><%= d.unit %></td>
+          <td><%= d.ttl_qty %></td>
+          <td><%= d.active == 'Y' ? '上架' : '下架' %></td>
+          <td>
+            <%= link_to '<i class="fa fa-pencil-square-o"></i>'.html_safe, {action: :edit, id: d.id},
+              class: "btn btn-info btn-sm", style: 'color:white' %>
+            <%= link_to '<i class="fa fa-trash"></i>'.html_safe, {action: :edit, id: d.id},
+              class: "btn btn-danger btn-sm" %>
+          </td>
+        </tr>
+      <% end %>
+    </tr>
+  </tbody>
+</table>

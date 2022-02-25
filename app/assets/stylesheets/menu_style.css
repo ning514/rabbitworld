@@ -8,8 +8,8 @@ ul{
 }
 
 .logo{
-	float: left;	
-  	padding: 10px 10px 0 20px;	
+	float: left;
+  padding: 10px 10px 0 20px;
 }
 
 .logo a{
@@ -72,7 +72,7 @@ ul{
 	.logo{
 		margin: 0 auto;
 	}
-    .menu-list{		
+    .menu-list{
 		/*隱藏選單開始*/
 		max-height: 0;
 		overflow: hidden;
@@ -101,11 +101,11 @@ ul{
 		font-weight: bold;
 		color: #dae9ff;
 	}
-	.showmenu:hover{ 
+	.showmenu:hover{
 		color: rgb(255, 242, 128);
 	}
-	/*jQ點擊後動態在 body 加上 class */ 
+	/*jQ點擊後動態在 body 加上 class */
 	.menu-show .menu-list{
-		max-height: 336px; 
+		max-height: 336px;
 	}
 }

@@ -5,11 +5,12 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :main, only: [:index]
   namespace :management do
-    resources :product, only:[:index] do
+    resources :product, only:[:index, :new] do
       collection do
-        
+        get :search, :edit
+        post :create
       end
-    end    
+    end
   end
   namespace :rabbit do
     resources :info, only: [:index] do
