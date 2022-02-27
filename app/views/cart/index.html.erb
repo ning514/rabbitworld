@@ -1,0 +1,51 @@
+<h2 class="row mb-4"><b>購物車</b></h2><hr/>
+<button type="button" id="btn_show_cart_data" style="display: none;"></button>
+<img width="40px" height="40px" src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/000000/external-crown-success-flatart-icons-flat-flatarticons.png"/>
+<span style="font-size:18px;font-weight:bold;">親愛的<%= session[:user]["username"] %>會員您好：</span>
+<div id="div_show_cart_data" style="margin-top:10px;"></div>
+
+<script>
+  $(function() {
+    $('#btn_show_cart_data').click();
+  });
+
+  $('#btn_show_cart_data').on('click', function(){
+    $('#div_show_cart_data').html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i>  <span style='font-size:18px;font-weight:bold;'>Loading...</span>");
+    $.ajax({
+      url: "<%= url_for(action: :show_data) %>",
+      data: {},
+      type: "get",
+      dataType: 'html',
+      success: function(html){
+        $('#div_show_cart_data').html(html);
+      }
+    });
+    return false;
+  });
+
+  $('#div_show_cart_data').on('change', '.qty', function(){
+    var qty = $(this).val();
+    var id = $(this).data('id');
+    if(qty <= 0){
+      alert('購買數量請勿小於1, 若不需要請刪除');
+    }else{
+      $.ajax({
+        url: "<%= url_for(action: :update) %>",
+        data: {
+          id: id,
+          qty: qty
+        },
+        beforeSend: function(xhr) {
+          xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+        },
+        type: "patch",
+        dataType: 'josn',
+        success: function(resp){
+        },
+        complete: function(){
+          $('#btn_show_cart_data').click();
+        }
+      });
+    }
+  });
+</script>

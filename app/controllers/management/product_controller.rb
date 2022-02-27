@@ -1,7 +1,6 @@
 class Management::ProductController < ApplicationController
-  before_action :init_option, only: [:index, :new]
+  before_action :init_option, only: [:index, :new, :edit]
   def index
-
   end
 
   def search
@@ -29,6 +28,7 @@ class Management::ProductController < ApplicationController
       price: params[:new][:price],
       unit: params[:new][:unit],
       unit_qty: params[:new][:unit_qty],
+      active: params[:new][:active],
       desc: params[:new][:desc]
     })
 
@@ -42,10 +42,41 @@ class Management::ProductController < ApplicationController
   end
 
   def edit
+    @data = ::Product.find(params[:id])
   end
 
+  def update
+    data = ::Product.find(params[:id])
+    if data.update(
+      category: params[:edit][:category],
+      name: params[:edit][:name],
+      ttl_qty: params[:edit][:ttl_qty],
+      price: params[:edit][:price],
+      unit: params[:edit][:unit],
+      unit_qty: params[:edit][:unit_qty],
+      active: params[:edit][:active],
+      desc: params[:edit][:desc]
+    )
+      flash[:success] = '編輯成功'
+      redirect_to action: :index
+    else
+      flash[:danger] = '編輯失敗'
+      redirect_to action: :edit
+    end
+  end
+
+  def destroy
+    if ::Product.find(params[:id]).destroy
+      flash[:success] = '刪除成功'
+    else
+      flash[:danger] = '編輯失敗'
+    end
+    redirect_to action: :index
+  end
+
+  private
   def init_option
-    @category_list = [['牧草', 'GRASS_HAY'], ['飼料', 'PET_FOOD'], ['點心', 'SNACK'], ['玩具', 'TOY'], ['其他', 'OTHER']]
+    @category_list = Constant::CATEGORY
     @unit_list = ["公克", "公斤"]
     @active_list = [["上架", "Y"], ["下架", "N"]]
   end

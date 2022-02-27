@@ -8,11 +8,13 @@
       <li><%= link_to '認識兔子', {controller: '/rabbit/info', action: 'index'}, {} %></li>
       <li><%= link_to '飼養百科', {controller: '/rabbit/info', action: 'feed'}, {} %></li>
       <li><%= link_to '照顧方式', {controller: '/rabbit/info', action: 'feed'}, {} %></li>
-      <li><%= link_to '購物', {controller: '/rabbit/info', action: 'feed'}, {} %></li>
+      <li><%= link_to '線上購物', {controller: '/shop/customer', action: 'index'}, {} %></li>
     </ul>
     <ul class="user-list">
       <% if session[:user].present? %>
         <%#= session[:username]%>
+        <li><%= link_to '<i class="fa fa-shopping-cart fa-lg"></i>'.html_safe,
+          {controller: '/cart', action: 'index'}, {title: '購物車'} %></li>
         <li><%= link_to '商品管理', {controller: '/management/product', action: 'index'}, {title: '商品管理'} %></li>
         <li><%= link_to '登出', {controller: '/login', action: 'logout'}, {title: '登出帳號'} %></li>
       <% else %>

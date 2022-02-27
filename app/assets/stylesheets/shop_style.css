@@ -1,0 +1,49 @@
+.btn_shop_filter{
+  background: #7990CA;
+  color: white;
+  padding: 3px 25px;
+  margin: 2px;
+  font-weight: bold;
+  border-radius: 20px;
+  border: 0;
+}
+
+.btn_add_to_chart{
+  background: #7990CA;
+  color: white;
+  padding: 2px 10px;
+  margin: 2px;
+  font-weight: bold;
+  border-radius: 20px;
+  border: 0;
+}
+
+.btn_shop_filter:hover, .btn_add_to_chart:hover{
+  background: #B5C3DF;
+}
+
+.commercial{
+  height: 300px;
+  border-radius: 20px;
+  text-shadow: 0.1em 0.2em 0.2em gray;
+  color: white;
+  font-size: 50px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.flex-container{
+  display: flex;
+  flex-wrap: wrap;
+  /*justify-content: space-around;*/
+  justify-content: flex-start;
+}
+
+.flex-card{
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgb(209, 209, 209);
+  padding: 15px;
+  margin: 15px 20px;
+  box-shadow: 3px 3px 20px gray;
+}

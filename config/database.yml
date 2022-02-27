@@ -1,3 +1,31 @@
+# default: &default
+#   adapter: postgresql
+#   encoding: unicode
+#   # For details on connection pooling, see Rails configuration guide
+#   # http://guides.rubyonrails.org/configuring.html#database-pooling
+#   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+# development:
+#   <<: *default
+#   database: d77rpqrmrl2ltm
+#   host: ec2-3-227-195-74.compute-1.amazonaws.com
+#   port: 5432
+#   user: yusyrwwrvledba
+#   password: 6cfc479afb291b7243fcc2ca708e9d30fada7f0f951efc7df16129ba94326e40
+
+# test:
+#   <<: *default
+#   database: d77rpqrmrl2ltm
+#   port: 5432
+#   user: yusyrwwrvledba
+#   password: 6cfc479afb291b7243fcc2ca708e9d30fada7f0f951efc7df16129ba94326e40
+
+# production:
+#   <<: *default
+#   database: d77rpqrmrl2ltm
+#   username: yusyrwwrvledba
+#   password: <%= ENV['PETWEB_DATABASE_PASSWORD'] %>
+
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -7,21 +35,21 @@ default: &default
 
 development:
   <<: *default
-  database: d77rpqrmrl2ltm
-  host: ec2-3-227-195-74.compute-1.amazonaws.com
+  database: d3h0m3jh8qpucv
+  host: ec2-34-231-183-74.compute-1.amazonaws.com
   port: 5432
-  user: yusyrwwrvledba
-  password: 6cfc479afb291b7243fcc2ca708e9d30fada7f0f951efc7df16129ba94326e40
+  user: shdqavptdstjxv
+  password: e9607e729fbf4948b30d69b73dc214d299a02aafa659ce9343f9be8014e994d1
 
 test:
   <<: *default
-  database: d77rpqrmrl2ltm
+  database: d3h0m3jh8qpucv
   port: 5432
-  user: yusyrwwrvledba
-  password: 6cfc479afb291b7243fcc2ca708e9d30fada7f0f951efc7df16129ba94326e40
+  user: shdqavptdstjxv
+  password: e9607e729fbf4948b30d69b73dc214d299a02aafa659ce9343f9be8014e994d1
 
 production:
   <<: *default
-  database: d77rpqrmrl2ltm
-  username: yusyrwwrvledba
+  database: d3h0m3jh8qpucv
+  username: shdqavptdstjxv
   password: <%= ENV['PETWEB_DATABASE_PASSWORD'] %>

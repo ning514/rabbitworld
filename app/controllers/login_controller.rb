@@ -7,6 +7,7 @@ class LoginController < ApplicationController
     if user.present?
       session[:user] = {}
       session[:user][:username] = user.username
+      session[:user][:userid] = user.id
       redirect_to controller: :main, action: :index
     else
       flash[:danger] = '登入失敗'
@@ -28,7 +29,7 @@ class LoginController < ApplicationController
         email: params[:new_acc][:email],
         psw: params[:new_acc][:psw]
       })
-      
+
       if result.present?
         flash[:success] = '註冊成功'
         redirect_to action: :index

@@ -1,0 +1,59 @@
+<h2 class="row mb-4"><b>編輯商品</b></h2>
+<%= form_for :edit, url: {action: :update, id: @data.id}, html: {id: 'edit_product_form', method: 'patch'} do |f| %>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">類別</span>
+        <%= f.select :category, options_for_select(@category_list, @data.category), {include_blank: true}, {class: 'form-select', required: true} %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">名稱</span>
+        <%= f.text_field :name, value: @data.name, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">總庫存</span>
+        <%= f.text_field :ttl_qty, value: @data.ttl_qty, type: 'number', min: 0, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">狀態</span>
+        <%= f.select :active, options_for_select(@active_list, @data.active), {include_blank: false}, {class: 'form-select'} %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">金額</span>
+        <%= f.text_field :price, value: @data.price, type: 'number', min: 0, class: 'form-control', required: true %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div class="input-group">
+        <span class="input-group-text">單位</span>
+        <%= f.text_field :unit_qty, value: @data.unit_qty, placeholder: '自訂單位量', type: 'number', min: 1, step: 0.5, class: 'form-control', required: true %>
+        <%= f.select :unit, options_for_select(@unit_list, @data.unit), {include_blank: true}, {class: 'form-select', required: true} %>
+      </div>
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-3 mb-3">
+      <div style="margin-top:5px;color:red;">(單位量最少為1)</div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-12">
+      <div class="input-group">
+        <span class="input-group-text">敘述</span>
+        <%= f.text_area :desc, value: @data.desc, class: 'form-control', required: true %>
+      </div>
+    </div>
+  </div>
+  <div class="text-center">
+    <%= link_to '返回', {action: 'index'}, {class: 'btn btn-secondary'} %>
+    <%= f.submit '送出', class: "btn btn-primary" %>
+  </div>
+<% end %>

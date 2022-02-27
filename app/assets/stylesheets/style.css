@@ -25,7 +25,9 @@
 }
 
 .content{
-  padding: 20px 10%;
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
 }
 
 .content > div{
@@ -34,5 +36,5 @@
 }
 
 .div_input{
-  margin-bottom: 10px; 
+  margin-bottom: 10px;
 }

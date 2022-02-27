@@ -1,0 +1,121 @@
+<h2 class="row mb-4"><b>線上購物</b></h2>
+<%= form_for :query, url: {}, html: {id: 'search_shop_form', class: 'form-inline'} do |f| %>
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 mb-3">
+    <div class="input-group">
+      <%= f.text_field :search_key, placeholder: '關鍵字搜尋', class: 'form-control',
+        style: 'border-top-left-radius:20px;border-bottom-left-radius:20px;' %>
+      <%= f.submit '搜尋', id: 'btn_search_shop', class: "btn btn-secondary",
+        style: 'border-top-right-radius:20px;border-bottom-right-radius:20px;padding-right: 30px;padding-left: 20px;' %>
+    </div>
+  </div>
+<% end %>
+<div class="mb-3">
+  <% @category_list.each do |desc_ch, desc_en| %>
+    <button type="button" class="btn_shop_filter" data-category="<%= desc_en %>"><%= desc_ch %></button>
+  <% end %>
+</div>
+<!--輪播廣告-->
+<div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+  <div class="carousel-indicators">
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+  </div>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="commercial" style="background-color: #FBD0CA;">迎春食品賞</div>
+      <div class="carousel-caption d-none d-md-block">
+        <img src="https://img.icons8.com/external-glyphons-amoghdesign/64/000000/external-basket-easter-vol-2-glyphons-amoghdesign.png"/>
+        <h4 style="margin-top:20px"><b>優質牧草與飼料限時特賣</b></h4>
+        <h5>3/1 ~ 5/1</h5>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="commercial" style="background-color: #F7D770;">兔兔點心特典</div>
+      <div class="carousel-caption d-none d-md-block">
+        <img src="https://img.icons8.com/external-glyphons-amoghdesign/64/000000/external-bunny-easter-vol-1-glyphons-amoghdesign.png"/>
+        <h4 style="margin-top:20px"><b>草餅 × 果乾 × 草條</b></h4>
+        <h5>手工天然好吃點心</h5>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="commercial" style="background-color: #D3E6AA;">營養保健專家</div>
+      <div class="carousel-caption d-none d-md-block">
+        <img src="https://img.icons8.com/external-glyphons-amoghdesign/64/000000/external-animal-easter-vol-1-glyphons-amoghdesign.png"/>
+        <h4 style="margin-top:20px"><b>木瓜酵素、葉黃素、化毛膏等等</b></h4>
+        <h5>幼兔、成兔、老兔照護，給兔兔們最好的保健食品</h5>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="commercial" style="background-color: #BFF0F6;">兔兔新春出遊</div>
+      <div class="carousel-caption d-none d-md-block">
+        <img src="https://img.icons8.com/external-glyphons-amoghdesign/64/000000/external-bunny-easter-vol-2-glyphons-amoghdesign.png"/>
+        <h4 style="margin-top:20px"><b>新品 <i class="fa fa-star"></i> 穿衣繩｜帽子｜圍巾｜飾品</b></h4>
+        <h5>幫兔兔公主與王子打扮的漂漂亮亮出遊去</h5>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<div class="mb-3">
+  <div id="div_shop_list"></div>
+</div>
+
+<script>
+  $(function() {
+    $('#btn_search_shop').click();
+  });
+  $('#btn_search_shop').on('click', function(){
+    $('#div_shop_list').html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i>  <span style='font-size:18px;font-weight:bold;'>Loading...</span>");
+    $.ajax({
+      url: "<%= url_for(action: :search) %>",
+      data: {search_key: $('#query_search_key').val()},
+      type: "get",
+      dataType: 'html',
+      success: function(html){
+        $('#div_shop_list').html(html);
+      }
+    });
+    return false;
+  });
+
+  $('.btn_shop_filter').on('click', function(){
+    $('#div_shop_list').html("<i class='fa fa-spinner fa-pulse fa-2x fa-fw'></i>  <span style='font-size:18px;font-weight:bold;'>Loading...</span>");
+    $.ajax({
+      url: "<%= url_for(action: :search) %>",
+      data: {category: $(this).data('category')},
+      type: "get",
+      dataType: 'html',
+      success: function(html){
+        $('#div_shop_list').html(html);
+      }
+    });
+  });
+
+  $('#div_shop_list').on('click', '.btn_add_to_chart',  function(){
+    $.ajax({
+      url: "<%= url_for(action: :add_to_cart) %>",
+      data: {prod_id: $(this).data("id")},
+      type: "post",
+      dataType: 'json',
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+      },
+      success: function(resp){
+        if(resp.success){
+          alert("成功加入購物車");
+        }else{
+          alert("請先登入帳號");
+        }
+      }
+    });
+  })
+</script>
