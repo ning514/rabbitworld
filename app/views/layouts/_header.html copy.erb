@@ -1,39 +1,26 @@
-<div>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <%= link_to '<img src="https://img.icons8.com/external-icongeek26-flat-icongeek26/64/000000/external-rabbit-origami-icongeek26-flat-icongeek26.png"
-        width="40px" height="40px" style="margin-right:10px"/>Rabbit World'.html_safe, {controller: '/main', action: 'index'}, {class: "navbar-brand"} %>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item">
-            <%= link_to '認識兔子', {controller: '/rabbit/info', action: 'index'}, {class: "nav-link active", "aria-current": "page"} %>
-            </li>
-            <li class="nav-item dropdown">
-            <%= link_to '飼養百科', {controller: '/rabbit/info', action: 'feed'}, {class: "nav-link", "aria-current": "page"} %>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-            </li>
-            <li class="nav-item">
-            <%= link_to '照顧方式', {controller: '/rabbit/info', action: 'feed'}, {class: "nav-link", "aria-current": "page"} %>
-            </li>
-            <li class="nav-item">
-            <%= link_to '購物', {controller: '/rabbit/info', action: 'feed'}, {class: "nav-link", "aria-current": "page"} %>
-            </li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-            <% if session[:user].present? %>
-            <%= session[:username]%>
-            <%= link_to '登出', {controller: '/login', action: 'logout'}, {class: "nav-link", title: '登出帳號'} %>
-            <% else %>
-            <%= link_to '<i class="bi bi-person-fill"></i> 登入'.html_safe, 
-                {controller: '/login', action: 'index'}, {class: "nav-link", title: '登入帳號'} %>
-            <% end %>
-        </ul>
-        </div>
-    </div>
-  </nav>
+<div class="header">
+  <div class="logo">
+    <%= link_to '<img src="https://img.icons8.com/external-icongeek26-flat-icongeek26/64/000000/external-rabbit-origami-icongeek26-flat-icongeek26.png"/>Rabbit World'.html_safe, {controller: '/main', action: 'index'} %>
+  </div>
+  <div class="menu">
+    <a href="#" class="showmenu"><i class="fa fa-bars fa-2x"></i></a>
+    <ul class="menu-list">
+      <li><%= link_to '認識兔子', {controller: '/rabbit/info', action: 'index'}, {} %></li>
+      <li><%= link_to '飼養百科', {controller: '/rabbit/info', action: 'feed'}, {} %></li>
+      <li><%= link_to '照顧方式', {controller: '/rabbit/info', action: 'feed'}, {} %></li>
+      <li><%= link_to '線上購物', {controller: '/shop/customer', action: 'index'}, {} %></li>
+    </ul>
+    <ul class="user-list">
+      <% if session[:user].present? %>
+        <% if session[:user]["priv"] == 'admin' %>
+          <li><%= link_to '商品管理', {controller: '/management/product', action: 'index'}, {title: '商品管理'} %></li>
+        <% end %>
+        <li><%= link_to '<i class="fa fa-shopping-cart fa-lg"></i>'.html_safe,
+          {controller: '/cart', action: 'index'}, {title: '購物車'} %></li>
+        <li><%= link_to '登出', {controller: '/login', action: 'logout'}, {title: '登出帳號'} %></li>
+      <% else %>
+        <li><%= link_to '<i class="fa fa-user fa-lg"></i>'.html_safe, {controller: '/login', action: 'index'}, {title: '登入帳號'} %></li>
+      <% end %>
+    </ul>
+  </div>
 </div>

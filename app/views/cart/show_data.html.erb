@@ -1,42 +1,28 @@
 <% if @data.present? %>
-  <table class="table table-bordered table-hover text-center">
-    <thead>
-      <tr style="background-color: #c4d9ff">
-        <th width="20%">圖片</th>
-        <th width="40%">商品明細</th>
-        <th width="10%">售價</th>
-        <th width="10%">購買數量</th>
-        <th width="10%">小計</th>
-        <th width="10%">刪除</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% ttl = 0 %>
-      <% @data.each do |d| %>
-        <% ttl += d.qty.to_i * d.prod_price.to_i %>
-        <tr>
-          <td><img src="https://fakeimg.pl/200x100/?text=Picture"></td>
-          <td style="text-align:left;">
-            <span style="font-size:18px;font-weight:bold;"><%= d.prod_name %></span><br/><%= d.prod_desc %>
-          </td>
-          <td><%= d.prod_price %></td>
-          <td>
-            <input type="number" class="qty form-control" data-id="<%= d.id %>" value="<%= d.qty %>" min="1">
-          </td>
-          <td><%= d.qty.to_i * d.prod_price.to_i %></td>
-          <td>
-            <%= link_to '<i class="fa fa-trash"></i> 刪除'.html_safe, {action: :destroy, id: d.id},
-              data: {"turbo-method": :delete, 'turbo-confirm': '確定刪除?'}, class: "btn btn-danger btn-sm", style: 'color:white' %>
-          </td>
-        </tr>
-      <% end %>
-      <tr style="background-color: #e3edff">
-        <td align="right" colspan="6" style="font-size:18px;">
-          <b>共<%= @data.size %>項商品，總數量為<%= @data.sum(&:qty) %>件，總金額為<font color="red"><%= ttl %>元</font></b>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <% ttl = 0 %>
+  <% @data.each do |d| %>
+    <% ttl += d.qty.to_i * d.prod_price.to_i %>
+    <div class="row" style="margin: 10px 0;border:1px solid #d3d3d3;padding:10px 0;border-radius:10px;">
+      <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3" align="center">
+        <img src="https://fakeimg.pl/200x100/?text=Picture" style="width: 100%;height: auto;">
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
+        <span style="font-size:18px;font-weight:bold;"><%= d.prod_name %></span><br/><%= d.prod_desc %><br/>
+        <span>售價：$<%= d.prod_price %></span>
+      </div>
+      <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2" style="padding-top: 15px;">
+        <div class="input-group mb-2">
+          <span class="input-group-text" id="basic-addon1">數量</span>
+          <input type="number" class="qty form-control" data-id="<%= d.id %>" value="<%= d.qty %>" min="1">
+        </div>
+        <%= link_to '<i class="fa fa-trash"></i> 刪除'.html_safe, {action: :destroy, id: d.id},
+          data: {"turbo-method": :delete, 'turbo-confirm': '確定刪除?'}, class: "btn btn-danger btn-sm", style: 'color:white' %>
+      </div>
+    </div>
+  <% end %>
+  <div class="alert alert-info" role="alert" style="font-size:18px;font-weight:bold;">
+    共<%= @data.size %>項商品，總數量為<%= @data.sum(&:qty) %>件，總金額為<font color="red"><%= ttl %>元</font>
+  </div>
   <div align="center">
     <%= link_to '返回商店', {controller: '/shop/customer', action: 'index'}, {class: "btn btn-secondary"} %>
     <%= link_to '確認結帳', {controller: '/cart', action: 'check_out'}, {class: "btn btn-primary"} %>

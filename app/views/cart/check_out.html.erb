@@ -1,1 +1,83 @@
+<style>
+  .formTable th{
+    width: 20%;
+    text-align: center;
+  }
+  .alert{
+    font-size: 18px;
+    font-weight: bold;
+  }
+</style>
 <h2 class="row mb-4"><b>結帳</b></h2><hr/>
+<div class="alert alert-info" role="alert" style="margin-bottom: 0px;">購買明細</div>
+<% @ttl = 0 %>
+<% @data.each do |d| %>
+  <% @ttl += d.qty.to_i * d.prod_price.to_i %>
+  <div class="row" style="margin: 10px 0;border:1px solid #d3d3d3;padding:10px 0;border-radius:10px;">
+    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-3" align="center">
+      <img src="https://fakeimg.pl/200x100/?text=Picture" style="width: 100%;height: auto;">
+    </div>
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-7">
+      <span style="font-size:18px;font-weight:bold;"><%= d.prod_name %></span><br/><%= d.prod_desc %><br/>
+      <span>售價：$<%= d.prod_price %></span>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-2 col-lg-2" style="padding-top: 15px;">
+      <span>購買數量：<%= d.qty %></span>
+    </div>
+  </div>
+<% end %>
+<div class="row">
+  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <b>共<%= @data.size %>項商品，總數量為<%= @data.sum(&:qty) %>件，總金額為<font color="red"><%= @ttl %>元</font></b>
+  </div>
+</div>
+<div class="row">
+  <div class="alert alert-info" role="alert">訂購人資料</div>
+  <table class="formTable table table-border">
+    <tbody>
+      <tr>
+        <th>姓名</th>
+        <td><%= @user.username %></td>
+      </tr>
+      <tr>
+        <th>Email</th>
+        <td><%= @user.email %></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<%= form_for :check_out, url: {action: 'confirm'}, html: {id: 'check_out_form', method: 'post'} do |f| %>
+  <div class="row">
+    <div class="alert alert-info" role="alert">收件人資料</div>
+    <table class="formTable table table-border">
+      <tbody>
+        <tr>
+          <th>姓名</th>
+          <td><%= f.text_field :name, value: @user.username, class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td><%= f.text_field :email, value: @user.email, class: 'form-control' %></td>
+        </tr>
+        <tr>
+          <th>收件地址</th>
+          <td>
+            <%= f.text_field :address, class: 'form-control', required: true %>
+          </td>
+        </tr>
+        <tr>
+          <th>連絡電話</th>
+          <td>
+            <%= f.text_field :telephone, type: "tel", placeholder: "0912-345-678", class: 'form-control',
+              pattern: "[0-9]{4}-[0-9]{3}-[0-9]{3}", required: true %>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div align="center">
+      <%= f.hidden_field :ttl, value: @ttl %>
+      <%= link_to '返回購物車', {controller: '/cart', action: 'index'}, {class: "btn btn-secondary"} %>
+      <%= f.submit '送出訂單', id: 'btn_confirm', class: "btn btn-primary" %>
+    </div>
+  </div>
+<% end %>

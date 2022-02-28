@@ -1,0 +1,29 @@
+<style>
+  .card-header{
+    background-color: rgb(157 159 233 / 30%);
+  }
+  .card-text{
+    margin: 0;
+  }
+</style>
+<h2 class="row mb-4"><b>歷史訂單</b></h2><hr/>
+<% if @list.present? %>
+  <% @list.each do |d| %>
+    <div class="card">
+      <h5 class="card-header">
+        <div style="float:left">訂單編號：<%= d.order_num %></div>
+        <div style="float:right">總金額：<%= d.amount %></div>
+      </h5>
+      <div class="card-body">
+        <p class="card-text text-primary"><b>購買日期：<%= d.buy_date.strftime('%Y/%m/%d') %></b></p>
+        <% d.dtl.each do |d| %>
+          <p class="card-text">
+            <b><%= d.product.name %></b>　$<%= d.product.price %> X <%= d.qty %>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="alert alert-danger" role="alert">無歷史訂單資料</div>
+<% end %>

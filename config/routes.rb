@@ -37,9 +37,13 @@ Rails.application.routes.draw do
   end
   resources :cart, only: [:index] do
     collection do
-      get :show_data, :check_out
+      get :show_data, :check_out, :result
+      post :confirm
       patch :update
       delete :destroy
     end
+  end
+  namespace :user_sys do
+    resources :orderlist, only: [:index]
   end
 end

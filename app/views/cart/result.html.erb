@@ -1,0 +1,12 @@
+<img width="40px" height="40px" src="https://img.icons8.com/external-flatart-icons-flat-flatarticons/64/000000/external-crown-success-flatart-icons-flat-flatarticons.png"/>
+<span style="font-size:18px;font-weight:bold;">親愛的<%= session[:user]["username"] %>會員您好</span>
+<div style="margin-top:20px">
+  <% if @result == 'Y' %>
+    <div class="alert alert-success" role="alert">感謝您的訂購，您的訂單編號為：<%= @order_num %></div>
+  <% else %>
+    <div class="alert alert-danger" role="alert">很抱歉，您的訂購失敗，請重新操作！</div>
+  <% end %>
+</div>
+<%= link_to '返回商店', {controller: '/shop/customer', action: 'index'}, {class: "btn btn-secondary"} %>
+<%= link_to '返回購物車', {controller: '/cart', action: 'index'}, {class: "btn btn-success"} %>
+<%= link_to '查看歷史訂單', {controller: '/user_sys/orderlist', action: 'index'}, {class: "btn btn-primary"} %>

@@ -8,39 +8,39 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
+          <%= link_to 'Home', {controller: '/main', action: 'index'}, {class: "nav-link active", "aria-current": "page"} %>
+        </li>
+        <li class="nav-item">
           <%= link_to '認識兔子', {controller: '/rabbit/info', action: 'index'}, {class: 'nav-link'} %>
         </li>
         <li class="nav-item">
           <%= link_to '飼養百科', {controller: '/rabbit/info', action: 'feed'}, {class: 'nav-link'} %>
         </li>
-        <!--<li class="nav-item">
-          <%#= link_to '照顧方式', {controller: '/rabbit/info', action: 'feed'}, {class: 'nav-link'} %>
-        </li>-->
+        <li class="nav-item">
+          <%= link_to '照顧方式', {controller: '/rabbit/info', action: 'feed'}, {class: 'nav-link'} %>
+        </li>
         <li class="nav-item">
           <%= link_to '線上購物', {controller: '/shop/customer', action: 'index'}, {class: 'nav-link'} %>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+        </li>
       </ul>
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <% if session[:user].present? %>
-          <% if session[:user]["priv"] == 'admin' %>
-            <li class="nav-item">
-              <%= link_to '商品管理', {controller: '/management/product', action: 'index'}, {class: 'nav-link', title: '商品管理'} %>
-            </li>
-          <% end %>
-          <li class="nav-item">
-            <%= link_to '<i class="fa fa-shopping-cart fa-lg"></i>'.html_safe, {controller: '/cart', action: 'index'},
-              {class: 'nav-link', title: '購物車'} %>
-          </li>
-          <li class="nav-item">
-            <%= link_to '登出', {controller: '/login', action: 'logout'}, {class: 'nav-link', title: '登出帳號'} %>
-          </li>
-        <% else %>
-          <li class="nav-item">
-            <%= link_to '<i class="fa fa-user fa-lg"></i>'.html_safe, {controller: '/login', action: 'index'},
-              {class: 'nav-link', title: '登入帳號'} %>
-          </li>
-        <% end %>
-      </ul>
+      <form class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
     </div>
   </div>
 </nav>

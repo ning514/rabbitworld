@@ -15,8 +15,8 @@ class ::Shop::CustomerController < ApplicationController
   end
 
   def add_to_cart
-    userid = session[:user]["userid"]
-    if userid.present?
+    if session[:user].present?
+      userid = session[:user]["userid"]
       data = ::Cart.where("user_id = ? and product_id = ?", userid, params[:prod_id]).first
       if data.present?
         qty = data.qty.to_i + 1
