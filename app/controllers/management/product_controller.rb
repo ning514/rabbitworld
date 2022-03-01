@@ -33,7 +33,7 @@ class Management::ProductController < ApplicationController
     })
 
     if result.present?
-      flash[:success] = '建立成功'
+      # flash[:success] = '建立成功'
       redirect_to action: :index
     else
       flash[:danger] = '建立失敗'
@@ -57,7 +57,7 @@ class Management::ProductController < ApplicationController
       active: params[:edit][:active],
       desc: params[:edit][:desc]
     )
-      flash[:success] = '編輯成功'
+      # flash[:success] = '編輯成功'
       redirect_to action: :index
     else
       flash[:danger] = '編輯失敗'
@@ -67,7 +67,7 @@ class Management::ProductController < ApplicationController
 
   def destroy
     if ::Product.find(params[:id]).destroy
-      flash[:success] = '刪除成功'
+      # flash[:success] = '刪除成功'
     else
       flash[:danger] = '編輯失敗'
     end

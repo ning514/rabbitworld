@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :main, only: [:index]
   namespace :management do
+    resources :main, only:[:index]
     resources :product, only:[:index, :new] do
       collection do
         get :search, :edit
@@ -45,5 +46,10 @@ Rails.application.routes.draw do
   end
   namespace :user_sys do
     resources :orderlist, only: [:index]
+    resources :account, only: [:index] do
+      collection do
+        patch :update_name
+      end
+    end
   end
 end

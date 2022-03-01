@@ -1,37 +1,24 @@
-<table class="table table-bordered table-hover">
-  <thead>
-    <tr style="background-color: #c4d9ff">
-      <th nowrap>No.</th>
-      <th nowrap>商品類別</th>
-      <th nowrap>商品名稱</th>
-      <th nowrap>商品敘述</th>
-      <th nowrap>單位</th>
-      <th nowrap>售價金額</th>
-      <th nowrap>目前庫存</th>
-      <th nowrap>狀態</th>
-      <th nowrap>操作</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <% @data.each_with_index do |d, i| %>
-        <tr>
-          <td><%= i + 1 %></td>
-          <td><%= ::Management::ProductHelper.product_category(d.category) %></td>
-          <td><%= d.name %></td>
-          <td><%= d.desc %></td>
-          <td nowrap><%= d.unit_qty %><%= d.unit %></td>
-          <td><%= d.price %>元</td>
-          <td><%= d.ttl_qty %></td>
-          <td nowrap><%= d.active == 'Y' ? '上架' : '下架' %></td>
-          <td nowrap>
-            <%= link_to '<i class="fa fa-pencil-square-o"></i>'.html_safe, {action: :edit, id: d.id},
-              class: "btn btn-info btn-sm", style: 'color:white' %>
-            <%= link_to '<i class="fa fa-trash"></i>'.html_safe, {action: :destroy, id: d.id},
-              data: {"turbo-method": :delete, 'turbo-confirm': '確定刪除?'}, class: "btn btn-danger btn-sm", style: 'color:white' %>
-          </td>
-        </tr>
+<% @data.each_with_index do |d, i| %>
+  <div class="row" style="margin: 10px 0;border:1px solid #d3d3d3;padding:10px 0;border-radius:10px;">
+    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+      <img src="https://fakeimg.pl/200x100/?text=Picture" style="width: 100%;height: auto;">
+    </div>
+    <div class="col-xs-12 col-sm-6 col-md-8 col-lg-9">
+      商品類別：<%= ::Management::ProductHelper.product_category(d.category) %><br/>
+      商品名稱：<%= d.name %><br/>
+      商品敘述：<%= d.desc %><br/>
+      單位售價：<%= d.price %>元 / <%= d.unit_qty %><%= d.unit %><br/>
+      <% if d.active == 'Y' %>
+        狀態：上架
+      <% else %>
+        狀態：<font color="red"><b>下架</b></font>
       <% end %>
-    </tr>
-  </tbody>
-</table>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top:10px;">
+      <%= link_to '<i class="fa fa-pencil-square-o"></i> 編輯'.html_safe, {action: :edit, id: d.id},
+        class: "btn btn-info", style: 'color:white' %>
+      <%= link_to '<i class="fa fa-trash"></i> 刪除'.html_safe, {action: :destroy, id: d.id},
+        data: {"turbo-method": :delete, 'turbo-confirm': '確定刪除?'}, class: "btn btn-danger", style: 'color:white' %>
+    </div>
+  </div>
+<% end %>

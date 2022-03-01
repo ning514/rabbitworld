@@ -5,11 +5,11 @@ class ::Shop::CustomerController < ApplicationController
 
   def search
     if params[:search_key].present?
-      @data = ::Product.where("name like '%#{params[:search_key]}%'")
+      @data = ::Product.where("name like '%#{params[:search_key]}%' and active = 'Y'")
     elsif params[:category].present?
-      @data = ::Product.where("category = ?", params[:category])
+      @data = ::Product.where("category = ? and active = 'Y'", params[:category])
     else
-      @data = ::Product.order("RANDOM()").take(10) # 隨機排序取10筆
+      @data = ::Product.where("active = 'Y'").order("RANDOM()").take(10) # 隨機排序取10筆
     end
     render layout: false
   end

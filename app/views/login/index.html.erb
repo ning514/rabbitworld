@@ -8,16 +8,13 @@
           <%= f.text_field :email, type: 'email', class: "form-control", autocomplete: false %>
         </div>
       </div>
-      <div class="col div_input">
+      <div class="col div_input" style="margin-bottom:20px">
         <div class="form-group">
           <label for="psw">密碼</label>
           <%= f.text_field :psw, type: "password", class: "form-control", autocomplete: false %>
         </div>
       </div>
-      <div class="col div_input" align="right">
-        <%= link_to '忘記密碼', "#", style: 'text-decoration:none' %>
-      </div>
-      <div class="col" style="margin-bottom:50px">
+      <div class="col" style="margin-bottom:20px">
         <%= f.submit '登入', class: 'btn btn-success', style: 'width:100%' %>
       </div>
       <div class="col div_input">

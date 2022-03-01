@@ -1,0 +1,37 @@
+<h2 class="row mb-4"><b>帳號管理（<%= session[:user]["priv"] == "admin" ? '管理員' : '會員' %>）</b></h2><hr/>
+<div class="row" style="margin-top:10px;">
+  <div class="col-xs-12 col-sm-6 col-md-5 col-lg-5">
+    <div class="col mb-3">
+      帳號 / Email：<%= @data.email %>
+    </div>
+    <div class="col mb-3">
+      <div class="input-group">
+        <span class="input-group-text">名稱</span>
+        <input type="text" id="name" value="<%= @data.username %>" class="form-control" placeholder="名稱" aria-label="名稱" aria-describedby="basic-addon1">
+        <button class="btn btn-primary" type="button" id="btn_update_name">修改</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#btn_update_name').on('click', function(){
+    $.ajax({
+      url: "<%= url_for(action: :update_name) %>",
+      data: {name: $('#name').val()},
+      type: "patch",
+      dataType: 'json',
+      beforeSend: function(xhr) {
+        xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+      },
+      success: function(resp){
+        if(resp.success){
+          alert("修改成功");
+          window.location.reload();
+        }else{
+          alert("修改失敗");
+        }
+      }
+    });
+  });
+</script>

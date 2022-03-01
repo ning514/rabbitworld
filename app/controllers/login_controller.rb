@@ -8,6 +8,7 @@ class LoginController < ApplicationController
       session[:user] = {}
       session[:user][:username] = user.username
       session[:user][:userid] = user.id
+      session[:user][:priv] = user.priv
       redirect_to controller: :main, action: :index
     else
       flash[:danger] = '登入失敗'
@@ -27,7 +28,8 @@ class LoginController < ApplicationController
       result = ::User.create({
         username: params[:new_acc][:username],
         email: params[:new_acc][:email],
-        psw: params[:new_acc][:psw]
+        psw: params[:new_acc][:psw],
+        priv: 'user'
       })
 
       if result.present?
